@@ -30,7 +30,7 @@ export class MovieController {
 				duration_minutes: {type: "number"},
 				rating: {type: "number"},
 				subscription_type: {type: "string", example: [SubscriptionType.FREE, SubscriptionType.PREMIUM]},
-				category_ids:{type:"array", items: {type:"number"}, example:[1,2]},
+				category_ids:{type:"json", example:[1,2]},
 				poster: {type: "string", format: "binary"}
 			}
 		}
@@ -60,6 +60,7 @@ export class MovieController {
 		@Req() req: Request,
 		@UploadedFile() file: Express.Multer.File
 	) {
+		console.log(payload);
 		return this.movieService.create(payload,req["user"], file?.filename);
 	}
 

@@ -202,7 +202,7 @@ export class SubscriptionService {
 		}
 	}
 
-	async subscriptionPaymet(subId: number, currentUser: {id: number, role: Roles}, payload: CreateSubscriptionPaymetDto){
+	async subscriptionPaymet(currentUser: {id: number, role: Roles}, payload: CreateSubscriptionPaymetDto){
 		const plan = await this.prisma.subscriptionPlan.findUnique({
 			where: {
 				id: payload.plan_id

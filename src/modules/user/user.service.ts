@@ -191,6 +191,12 @@ export class UserService {
 		if (!existUser){
 			throw new NotFoundException(`User not found with this id = ${userId}!`)
 		}
+		
+		await this.prisma.profile.delete({
+			where: {
+				userId
+			}
+		})
 
 		await this.prisma.user.delete({
 			where: {
@@ -198,11 +204,6 @@ export class UserService {
 			}
 		})
 
-		await this.prisma.profile.delete({
-			where: {
-				userId
-			}
-		})
 
 		return {
 			success: true,
@@ -222,17 +223,18 @@ export class UserService {
 			throw new NotFoundException(`Your account not found!`)
 		}
 
+		await this.prisma.profile.delete({
+			where: {
+				userId: currentUser.id
+			}
+		})
+
 		await this.prisma.user.delete({
 			where: {
 				id: currentUser.id
 			}
 		})
 
-		await this.prisma.profile.delete({
-			where: {
-				userId: currentUser.id
-			}
-		})
 
 		return {
 			success: true,

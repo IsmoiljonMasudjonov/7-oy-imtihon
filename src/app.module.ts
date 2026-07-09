@@ -15,6 +15,8 @@ import { AdminModule } from './modules/admin/admin.module';
 import { JwtTokenModule } from './core/utils/jwt.module';
 import { JwtModule } from '@nestjs/jwt';
 import { SeederModule } from './common/seeders/seeder.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
 	imports: [
@@ -24,6 +26,9 @@ import { SeederModule } from './common/seeders/seeder.module';
 		JwtModule.register({
 			global: true,
 			secret: process.env.JWT_SECRET
+		}),
+		ServeStaticModule.forRoot({
+			rootPath: join(process.cwd(),"src","uploads")
 		}),
 		PrismaModule,
 		AuthModule,

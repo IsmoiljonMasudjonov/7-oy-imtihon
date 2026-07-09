@@ -92,8 +92,8 @@ export class SubscriptionController {
 	@ApiOperation({summary: `${Roles.USER}`})
 	@UseGuards(AuthGuard, RoleGuard)
 	@RolesGuard(Roles.USER)
-	@Post("paymet/user-subscription/:subId")
-	pubscriptionPaymet(@Param("subId", ParseIntPipe) subId: number, @Req() req: Request, @Body() payload: CreateSubscriptionPaymetDto) {
-		return this.subscriptionService.subscriptionPaymet(subId, req["user"], payload);
+	@Post("paymet/user-subscription")
+	pubscriptionPaymet(@Req() req: Request, @Body() payload: CreateSubscriptionPaymetDto) {
+		return this.subscriptionService.subscriptionPaymet(req["user"], payload);
 	}
 }

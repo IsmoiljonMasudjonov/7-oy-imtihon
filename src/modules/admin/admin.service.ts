@@ -239,17 +239,18 @@ export class AdminService {
 			throw new NotFoundException(`User not found with this id = ${userId}!`)
 		}
 
+		await this.prisma.profile.delete({
+			where: {
+				userId
+			}
+		})
+		
 		await this.prisma.user.delete({
 			where: {
 				id: userId
 			}
 		})
 
-		await this.prisma.profile.delete({
-			where: {
-				userId
-			}
-		})
 
 		return {
 			success: true,

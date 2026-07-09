@@ -36,8 +36,9 @@ export class CreateMovieDto {
     @ApiProperty({ type: Array, example: [1, 2]})
     @Transform(({ value }) => {
         if (typeof value === "string") {
-            return JSON.parse(value);
+            return JSON.parse("[" + value + "]");
         }
+
         return value;
     })
     @IsArray()

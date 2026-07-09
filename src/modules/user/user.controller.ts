@@ -36,6 +36,14 @@ export class UserController {
 		return this.userService.findOne(userId);
 	}
 
+	@ApiOperation({summary: `${Roles.USER}`})
+	@UseGuards(AuthGuard, RoleGuard)
+	@RolesGuard(Roles.USER)
+	@Patch("me")
+	updateMe(@Req() req: Request, @Body() payload: UpdateUserDto) {
+		console.log(req["user"])
+		return this.userService.updateMe(payload, req["user"]);
+	}
 
 	@ApiOperation({summary: `${Roles.ADMIN}, ${Roles.SUPERADMIN}`})
 	@UseGuards(AuthGuard, RoleGuard)
@@ -45,13 +53,6 @@ export class UserController {
 		return this.userService.update(userId, payload);
 	}
 
-	@ApiOperation({summary: `${Roles.USER}`})
-	@UseGuards(AuthGuard, RoleGuard)
-	@RolesGuard(Roles.USER)
-	@Patch("me")
-	updateMe(@Req() req: Request, @Body() payload: UpdateUserDto) {
-		return this.userService.updateMe(payload, req["user"]);
-	}
 
 	@ApiOperation({summary: `${Roles.ADMIN}, ${Roles.SUPERADMIN}`})
 	@UseGuards(AuthGuard, RoleGuard)
